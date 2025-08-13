@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css"; // 이 파일은 다음 단계에서 만듭니다.
 
-/** 메인 화면(사진과 동일한 섹션만) */
+/** 메인 화면 */
 export default function App() {
   const popular = [
     {
