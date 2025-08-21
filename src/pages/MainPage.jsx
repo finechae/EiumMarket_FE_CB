@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import MarketSelectModal from "../components/modals/MarketSelectModal";
 import marketImg from "../assets/korean-market-storefront.png";
 
@@ -7,20 +8,8 @@ export default function MainPage() {
   const [open, setOpen] = useState(false);
 
   const popular = [
-    {
-      name: "숙이 떡집",
-      desc: "전통 떡과 한과 전문점",
-      distance: "1.4km",
-      open: true,
-      emoji: "🍡",
-    },
-    {
-      name: "돌산 족발",
-      desc: "신선한 족발과 보쌈 전문",
-      distance: "1.2km",
-      open: true,
-      emoji: "🍖",
-    },
+    { name: "숙이 떡집", desc: "전통 떡과 한과 전문점", distance: "1.4km", open: true, emoji: "🍡" },
+    { name: "돌산 족발", desc: "신선한 족발과 보쌈 전문", distance: "1.2km", open: true, emoji: "🍖" },
   ];
   const categories = [
     { name: "숙이 떡집", emoji: "🍡", bg: "bg-orange-100" },
@@ -36,30 +25,27 @@ export default function MainPage() {
   const markets = ["여수 서시장", "여수 수산시장"];
 
   return (
-    <div className="max-w-[390px] mx-auto bg-white min-h-full">
-      {/* 헤더 */}
+    // 최상위 div를 flex 컨테이너로 만들어 헤더와 메인 영역을 분리합니다.
+    <div className="flex flex-col h-full">
+      {/* 헤더: 이 부분은 스크롤되지 않고 상단에 고정됩니다. */}
       <header
-        className="px-4 pt-12 pb-6 text-white"
+        className="px-4 pt-12 pb-6 text-white flex-shrink-0" // flex-shrink-0 추가
         style={{ backgroundColor: "#93DA97" }}
       >
         <div className="flex items-center justify-between mb-3.5">
           <button className="inline-flex items-center justify-center size-8 rounded-full bg-white/20">
             🔔
           </button>
-
           <button
             onClick={() => setOpen(true)}
             className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-emerald-800 font-bold"
           >
             {market} ▾
           </button>
-
           <button className="inline-flex items-center justify-center size-8 rounded-full bg-white/20">
             MY
           </button>
         </div>
-
-        {/* 검색 */}
         <div className="relative">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 opacity-50">
             🔎
@@ -71,8 +57,8 @@ export default function MainPage() {
         </div>
       </header>
 
-      {/* 배너 */}
-      <main className="p-4 space-y-6">
+      {/* 메인 콘텐츠: 이 부분만 스크롤됩니다. */}
+      <main className="flex-1 overflow-y-auto p-4 space-y-6">
         <section>
           <div className="rounded-2xl overflow-hidden shadow relative h-[160px]">
             <img
@@ -88,15 +74,16 @@ export default function MainPage() {
         <section>
           <div className="flex items-center justify-between mb-3">
             <h3 className="font-extrabold text-[16px]">자주 찾는 가게</h3>
-            <button className="px-2 py-1 rounded-md font-bold text-emerald-700 hover:bg-emerald-50">
+            <Link to="/store" className="px-2 py-1 rounded-md font-bold text-emerald-700 hover:bg-emerald-50">
               전체보기
-            </button>
+            </Link>
           </div>
           <div className="grid grid-cols-2 gap-[14px]">
             {popular.map((s) => (
-              <div
+              <Link
+                to="/store"
                 key={s.name}
-                className="rounded-[18px] bg-white shadow p-3.5"
+                className="block rounded-[18px] bg-white shadow p-3.5 hover:bg-gray-50 transition-colors"
               >
                 <div className="w-12 h-12 rounded-[14px] bg-rose-50 flex items-center justify-center mb-2.5">
                   <span className="text-[22px]">{s.emoji}</span>
@@ -114,7 +101,7 @@ export default function MainPage() {
                     </span>
                   )}
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
